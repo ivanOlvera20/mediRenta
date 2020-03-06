@@ -26,5 +26,8 @@ app.use("/api/clientes", require("./rutas/clientes"));
 app.use("/api/empleados", require("./rutas/empleados"));
 app.use("/api/productos", require("./rutas/producto"));
 app.use("/api/remision", require("./rutas/remision"));
+app.use("/api/proveedor", require("./rutas/proveedor"));
+app.use("/api/bodega", require("./rutas/bodega"));
+app.use("/api/contrato", require("./rutas/contrato"));
 
 module.exports = app;

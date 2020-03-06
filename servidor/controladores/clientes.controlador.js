@@ -55,7 +55,7 @@ cliCtrl.update = async (req, res) => {
     correo,
     observaciones
   } = req.body;
-  await Linea.findByIdAndUpdate(req.params.id, {
+  await Cliente.findByIdAndUpdate(req.params.id, {
     nombre,
     domicilio,
     telefono,

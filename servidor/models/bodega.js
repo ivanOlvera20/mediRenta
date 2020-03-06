@@ -5,26 +5,17 @@ const { Schema, model } = require("mongoose");
 const { MongooseAutoIncrementID } = require("mongoose-auto-increment-reworked");
 
 //Definimos nuestro esquema(tabla de datos) con la constante Remision
-const Empleado = Schema({
+const Bodega = Schema({
   id: Schema.Types.ObjectId,
-  nombre: String,
-  correo: String,
-  telefono: Number,
-  celular: Number,
-  domicilio: {
-    calle: String,
-    colonia: String,
-    numInt: Number,
-    estado: String,
-    municipio: String,
-    cp: Number
-  },
-  puesto: String
+  producto: { type: Schema.ObjectId, ref: "producto" },
+  cantidad: Number,
+  costo: Number,
+  observacion: String
 });
 
 //inicializamos el plugin para el autoincremental
-Empleado.plugin(MongooseAutoIncrementID.plugin, {
-  modelName: "empleado",
+Bodega.plugin(MongooseAutoIncrementID.plugin, {
+  modelName: "bodega",
   field: "clave",
   incrementBy: 1,
   startAt: 1,
@@ -33,4 +24,4 @@ Empleado.plugin(MongooseAutoIncrementID.plugin, {
   resetCount: false
 });
 
-module.exports = model("empleado", Empleado);
+module.exports = model("bodega", Bodega);

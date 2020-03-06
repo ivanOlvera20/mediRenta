@@ -1,9 +1,9 @@
-const cliCtrl = {};
+const proCtrl = {};
 
-const Producto = require("../models/clientes");
+const Producto = require("../models/producto");
 
 //crear una nueva Linea
-cliCtrl.create = async (req, res) => {
+proCtrl.create = async (req, res) => {
   const { descripcion, precio } = req.body;
   const nuevoProducto = new Producto({
     descripcion,
@@ -17,25 +17,25 @@ cliCtrl.create = async (req, res) => {
 };
 
 //consultar todas las lineas
-cliCtrl.getMany = async (req, res) => {
+proCtrl.getMany = async (req, res) => {
   const pro = await Producto.find();
   res.json(pro);
 };
 
 //consultar una sola linea por Id
-cliCtrl.getOne = async (req, res) => {
+proCtrl.getOne = async (req, res) => {
   const pro = await Producto.findById(req.params.id);
   res.json(pro);
 };
 
 //borrar una linea
-cliCtrl.deleteOne = async (req, res) => {
+proCtrl.deleteOne = async (req, res) => {
   await Producto.findByIdAndDelete(req.params.id);
   res.json("producto borrado");
 };
 
 //actualizar una linea
-cliCtrl.update = async (req, res) => {
+proCtrl.update = async (req, res) => {
   const { descripcion, precio } = req.body;
   await Producto.findByIdAndUpdate(req.params.id, {
     descripcion,
@@ -44,4 +44,4 @@ cliCtrl.update = async (req, res) => {
   res.json("Producto Updated");
 };
 
-module.exports = cliCtrl;
+module.exports = proCtrl;

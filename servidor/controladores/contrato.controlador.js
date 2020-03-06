@@ -1,113 +1,110 @@
-const remCtrl = {};
+const conCtrl = {};
 
-const Remision = require("../models/remision");
+const Contrato = require("../models/contrato");
 
 //crear una nueva Linea
-remCtrl.create = async (req, res) => {
+conCtrl.create = async (req, res) => {
   const {
     nombreCliente,
+    remision,
     tipoServicio,
     fechaInicial,
     diasRenta,
     fechaFinal,
     atendio,
     entrego,
-    tipoPago,
     fechaPedido,
-    estadoRemision,
     cantidad,
-    unidad,
-    codigo,
     producto,
-    precioUnitario,
+    precioRenta,
+    referencia,
+    modalidad,
     total
   } = req.body;
-  const nuevaRem = new Remision({
+  const nuevaCon = new Contrato({
     nombreCliente,
+    remision,
     tipoServicio,
     fechaInicial,
     diasRenta,
     fechaFinal,
     atendio,
     entrego,
-    tipoPago,
     fechaPedido,
-    estadoRemision,
     cantidad,
-    unidad,
-    codigo,
     producto,
-    precioUnitario,
+    precioRenta,
+    referencia,
+    modalidad,
     total
   });
-  await nuevaRem.save();
+  await nuevaCon.save();
   res.status(201).json({
     message: "nuevo empleado creado",
-    remisionCreado: nuevaRem
+    remisionCreado: nuevaCon
   });
 };
 
 //consultar todas las lineas
-remCtrl.getMany = async (req, res) => {
-  const rem = await Remision.find()
+conCtrl.getMany = async (req, res) => {
+  const rem = await Contrato.find()
     .populate("producto", "descripcion")
     .populate("nombreCliente", "nombre")
     .populate("atendio", "nombre")
-    .populate("entrego", "nombre");
+    .populate("entrego", "nombre")
+    .populate("remision", "numeroRemision");
   res.json(rem);
 };
 
 //consultar una sola linea por Id
-remCtrl.getOne = async (req, res) => {
-  const rem = await Remision.findById(req.params.id);
+conCtrl.getOne = async (req, res) => {
+  const rem = await Contrato.findById(req.params.id);
   res.json(rem);
 };
 
 //borrar una linea
-remCtrl.deleteOne = async (req, res) => {
-  await Remision.findByIdAndDelete(req.params.id);
+conCtrl.deleteOne = async (req, res) => {
+  await Contrato.findByIdAndDelete(req.params.id);
   res.json("remision borrado");
 };
 
 //actualizar una linea
-remCtrl.update = async (req, res) => {
+conCtrl.update = async (req, res) => {
   const {
     nombreCliente,
+    remision,
     tipoServicio,
     fechaInicial,
     diasRenta,
     fechaFinal,
     atendio,
     entrego,
-    tipoPago,
     fechaPedido,
-    estadoRemision,
     cantidad,
-    unidad,
-    codigo,
     producto,
-    precioUnitario,
+    precioRenta,
+    referencia,
+    modalidad,
     total
   } = req.body;
-  await Remision.findByIdAndUpdate(req.params.id, {
+  await Contrato.findByIdAndUpdate(req.params.id, {
     nombreCliente,
+    remision,
     tipoServicio,
     fechaInicial,
     diasRenta,
     fechaFinal,
     atendio,
     entrego,
-    tipoPago,
     fechaPedido,
-    estadoRemision,
     cantidad,
-    unidad,
-    codigo,
     producto,
-    precioUnitario,
+    precioRenta,
+    referencia,
+    modalidad,
     total
   });
   res.json("A ale le huele la cola Updated");
 };
 
-module.exports = remCtrl;
+module.exports = conCtrl;
